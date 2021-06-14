@@ -20,7 +20,7 @@
 // module.exports = routes;
 
 const routes = require("express"). Router();
-const { request, response } = require("express");
+
 const multer = require('multer')
 const multerConfig = require('./config/multer')
 
@@ -33,6 +33,10 @@ routes.get('/slides', async (request, response) => {
 })
 
 routes.post('/slides', multer(multerConfig).single('file'), async (request, response) => {
+    if (!request.file) {
+        response.status(412).send('Arquivo não enviado!');
+    }
+
     const { originalname:name, size, filename: key } = request.file
     const slide = await Slide.create({
         name,
