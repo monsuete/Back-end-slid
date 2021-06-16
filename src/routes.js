@@ -35,8 +35,6 @@ routes.delete('/slides/:id', async(request, response) => {
     return response.send()
 })
 
-routes.get('/notices', (request, response)=> {
-    response.json({message: 'rota funcionando perfeito'})
-} )
+
 
 module.exports = routes;
