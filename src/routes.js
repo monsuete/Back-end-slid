@@ -1,30 +1,13 @@
-// const routes = require("express"). Router();
-// const multer = require('multer')
-// const multerConfig = require('./config/multer')
-
-
-// routes.get('/files',(request, response) => {
-//     const {filename} = request.files
-
-    
-
-// })
-
-
-// routes.post('/posts', multer(multerConfig).single('file'), (request, response) => {
-//     console.log( request.file );
-
-//     return response.json({message: 'Começando o back'})
-// })
-
-// module.exports = routes;
-
 const routes = require("express"). Router();
 const { request, response } = require("express");
 const multer = require('multer')
 const multerConfig = require('./config/multer')
 
 const Slide = require('./models/Slide')
+
+
+    
+
 
 routes.get('/slides', async (request, response) => {
     const slides = await Slide.find();
@@ -51,5 +34,9 @@ routes.delete('/slides/:id', async(request, response) => {
 
     return response.send()
 })
+
+routes.get('/notices', (request, response)=> {
+    response.json({message: 'rota funcionando perfeito'})
+} )
 
 module.exports = routes;
