@@ -4,6 +4,10 @@ const multer = require('multer')
 const multerConfig = require('./config/multer')
 
 const Slide = require('./models/Slide')
+const Notice = require('./models/Notice');
+const { Mongoose } = require("mongoose");
+
+// const {title, description} = require('./models/Notice');
 
 
     
@@ -39,6 +43,31 @@ routes.delete('/slides/:id', async(request, response) => {
     return response.send()
 })
 
+routes.get('/notices', async (request, response) => {
+    const notices = await Notice.find();
 
+    return response.json(notices)
+})
+
+routes.post('/notices', async (request, response) => {
+   const {title, description} = request.body
+    console.log(title);
+    console.log(description);
+    
+    const notice = await Notice.create({
+        title,
+        description,
+    })
+    
+    return response.json(notice)
+})
+
+routes.delete('/notices/:id', async(request, response) => {
+    const notice = await Notice.findById(request.params.id)
+
+    await notice.remove()
+
+    return response.send()
+})
 
 module.exports = routes;
